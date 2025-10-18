@@ -9,6 +9,8 @@ vendor := $(srctree)/$(src)
 #else
 #subdir-y += qcom
 # SM8250
+# Find X2 Pro
+subdir-y += 19066
 # Ace2
 subdir-y += 19161
 # 8
