@@ -140,3 +140,8 @@ kernel/configs/android-*.cfg
 #
 Android.bp
 out/
+*.sh
+anykernel/
+*.zip
+*.rej
+*.orig
