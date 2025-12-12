@@ -27,6 +27,8 @@ subdir-y += 20809
 subdir-y += 20828
 # Find X3
 subdir-y += 20061
+# Pad
+subdir-y += 21027
 # GT Master Explorer edition
 subdir-y += 21615
 # GT Neo 2
