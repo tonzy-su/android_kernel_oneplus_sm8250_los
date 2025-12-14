@@ -62,7 +62,7 @@ pm8008_9: qcom,pm8008@9 {
 		qcom,enable-ocp-broadcast;
 
 		L1P: qcom,pm8008-l1@4000 {
-			reg = /bits/ 16 <0x4000>;
+			reg = <0x4000>;
 			regulator-name = "pm8008_l1";
 			regulator-min-microvolt = <528000>;
 			regulator-max-microvolt = <1504000>;
