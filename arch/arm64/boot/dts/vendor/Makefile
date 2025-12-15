@@ -9,6 +9,8 @@ vendor := $(srctree)/$(src)
 #else
 #subdir-y += qcom
 # SM8250
+# Find X2
+subdir-y += 19065
 # Find X2 Pro
 subdir-y += 19066
 # Ace2
@@ -27,6 +29,12 @@ subdir-y += 20809
 subdir-y += 20828
 # Find X3
 subdir-y += 20061
+# Reno5 Pro+
+subdir-y += 20135
+# Reno6 Pro+
+subdir-y += 20161
+# Pad
+subdir-y += 21027
 # GT Master Explorer edition
 subdir-y += 21615
 # GT Neo 2
