@@ -1546,8 +1546,6 @@
 			qcom,vbatt_pdqc_to_5v_thr = <4180>;
 
 			qcom,vooc_show_ui_soc_decimal;
-			oplus,aging_ffc_version = <0x1>;
-            qcom,smart_chg_soh_support;
 			qcom,ui_soc_decimal_speedmin = <20>;//2A
 
 			qcom,chargerid_switch-gpio = <&tlmm 50 0x00>;
