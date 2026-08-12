@@ -19,9 +19,12 @@
 #include <linux/moduleparam.h>
 #include <net/pkt_sched.h>
 #include <net/net_namespace.h>
+#include <net/neighbour.h>
 #include <linux/netfilter.h>
 #include <linux/netfilter_ipv4.h>
 #include <linux/netfilter_ipv6.h>
+#include <linux/ip.h>
+#include <linux/ipv6.h>
 #include <linux/skbuff.h>
 #include <linux/spinlock.h>
 
@@ -305,6 +308,8 @@ static netdev_tx_t ovnet_xmit(struct sk_buff *skb, struct net_device *dev)
 	logi("ovnet_xmit start! %d", dev->ifindex);
 	if (skb->protocol != htons(ETH_P_IP)) {
 		logi("ovnet_xmit start! protocol not support %d", skb->protocol);
+		dev_kfree_skb(skb);
+		dev->stats.tx_dropped++;
 		return NETDEV_TX_OK;
 	}
 	iph = ip_hdr(skb);
