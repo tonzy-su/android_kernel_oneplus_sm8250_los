@@ -650,6 +650,7 @@ static int pm8008_register_ldo(struct pm8008_regulator *pm8008_reg,
 	char buff[MAX_REG_NAME];
 	const struct regulator_data *reg_data;
 	int rc, i, init_voltage;
+	u32 base = 0;
 	u8 reg;
 
 	reg_data = pm8008_reg->pmic_subtype == PM8008_SUBTYPE ? pm8008_reg_data
@@ -665,27 +666,12 @@ static int pm8008_register_ldo(struct pm8008_regulator *pm8008_reg,
 		return -EINVAL;
 	}
 
-	/*
-	 * The "reg" property of each LDO carries the base address.  The dtbo
-	 * overlay encodes it as a 16-bit value (e.g. "@" -> 0x4000), while
-	 * some base dtbs use a full 32-bit cell.  Accept both encodings.
-	 */
-	{
-		const __be16 *regp;
-		int plen;
-
-		regp = of_get_property(reg_node, "reg", &plen);
-		if (!regp || plen < 2) {
-			rc = -EINVAL;
-			pr_err("%s: failed to get regulator base rc=%d\n",
-				name, rc);
-			return rc;
-		}
-		if (plen == 2)
-			pm8008_reg->base = be16_to_cpu(*regp);
-		else
-			pm8008_reg->base = be32_to_cpu(*(const __be32 *)regp);
+	rc = of_property_read_u32(reg_node, "reg", &base);
+	if (rc < 0) {
+		pr_err("%s: failed to get regulator base rc=%d\n", name, rc);
+		return rc;
 	}
+	pm8008_reg->base = base;
 
 	rc = pm8008_regulator_register_init(pm8008_reg, &reg_data[i]);
 	if (rc)
