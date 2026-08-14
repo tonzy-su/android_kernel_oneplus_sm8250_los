@@ -8,7 +8,8 @@ vendor := $(srctree)/$(src)
 #endif
 #else
 #subdir-y += qcom
-# SM8250
+# SM8250 (KONA)
+ifeq ($(CONFIG_ARCH_KONA),y)
 # 8
 subdir-y += 19821
 # 8 tmo
@@ -27,9 +28,14 @@ subdir-y += 20061
 subdir-y += 21615
 # GT Neo 2
 subdir-y += 21619
-# SM7250
+endif
+# SM7250 / SM7225 (LITO / LAGOON)
+ifneq ($(filter y,$(CONFIG_ARCH_LITO) $(CONFIG_ARCH_LAGOON)),)
 # Nord
 subdir-y += 20801
 # Nord CE
 subdir-y += 20813
+# OPPO/Realme SM7250(SM7225) projects (ported from oplus_sm7250)
+subdir-y += oplus
+endif
 #endif
