@@ -2020,20 +2020,6 @@
 				bias-disable;
 			};
 		};
-
-		vbus_gpio_default: vbus_gpio_default {
-			mux {
-				pins = "gpio172";
-				function = "gpio";
-			};
-
-			config {
-				pins = "gpio172";
-				bias-disable;
-				drive-strength = <2>;
-				output-low;
-			};
-		};
 	};
 };
 
