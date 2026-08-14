@@ -507,7 +507,7 @@
 	};
 };
 &L5P {
-        reg =  /bits/ 16 <0x4400>;
+        reg = <0x4400>;
         regulator-min-microvolt = <1500000>;
         regulator-max-microvolt = <1500000>;
         //qcom,min-dropout-voltage = <300000>;

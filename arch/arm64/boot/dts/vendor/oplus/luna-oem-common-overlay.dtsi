@@ -27,7 +27,7 @@
 
 //#ifdef OPLUS_BUG_STABALITY
 &L5P {
-        reg =  /bits/ 16 <0x4400>;
+        reg = <0x4400>;
         regulator-min-microvolt = <1500000>;
         regulator-max-microvolt = <1500000>;
         //qcom,min-dropout-voltage = <300000>;
@@ -391,7 +391,7 @@
 		vdd_l7-supply = <&BOB>;
 
 		qcom,pm8008-l1@4000 {
-			reg =  /bits/ 16 <0x4000>;
+			reg = <0x4000>;
 		        regulator-min-microvolt = <950000>;
 		        regulator-max-microvolt = <1150000>;
 		        qcom,min-dropout-voltage = <100000>;
@@ -399,7 +399,7 @@
 		};
 
 		qcom,pm8008-l2@4100 {
-			reg =  /bits/ 16 <0x4100>;
+			reg = <0x4100>;
 		        regulator-min-microvolt = <1200000>;
 		        regulator-max-microvolt = <1200000>;
 		        qcom,min-dropout-voltage = <100000>;
@@ -407,7 +407,7 @@
 		};
 
 		qcom,pm8008-l3@4200 {
-			reg =  /bits/ 16 <0x4200>;
+			reg = <0x4200>;
 		        regulator-min-microvolt = <2800000>;
 		        regulator-max-microvolt = <2800000>;
 		        //qcom,min-dropout-voltage = <136000>;
@@ -415,14 +415,14 @@
 		};
 
 		qcom,pm8008-l4@4300 {
-			reg =  /bits/ 16 <0x4300>;
+			reg = <0x4300>;
 		        regulator-max-microvolt = <2800000>;
 		        //qcom,min-dropout-voltage = <160000>;
 		/*endif */
 		};
 
 		qcom,pm8008-l6@4400 {
-			reg =  /bits/ 16 <0x4500>;
+			reg = <0x4500>;
 		        regulator-min-microvolt = <2800000>;
 		        regulator-max-microvolt = <2800000>;
 		        //qcom,min-dropout-voltage = <184000>;
@@ -430,7 +430,7 @@
 		};
 
 		qcom,pm8008-l7@4400 {
-			reg =  /bits/ 16 <0x4600>;
+			reg = <0x4600>;
 		        regulator-min-microvolt = <2900000>;
 		        regulator-max-microvolt = <2900000>;
 		        //qcom,min-dropout-voltage = <200000>;
