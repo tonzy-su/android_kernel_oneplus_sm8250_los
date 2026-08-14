@@ -1092,3 +1092,4 @@ CONFIG_LSM="lockdown,yama,loadpin,safesetid,integrity,selinux,smack,tomoyo,appar
 # KernelSU root support
 CONFIG_KSU=y
 # CONFIG_KSU_DEBUG is not set
+CONFIG_TECHPACK_CAMERA_OPPO=y
