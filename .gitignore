@@ -140,3 +140,12 @@ kernel/configs/android-*.cfg
 #
 Android.bp
 out/
+/*.sh
+/*.zip
+logs/
+ovnet_diag/
+tmp/
+# KernelSU sources are kept out of the tree; place them at
+# drivers/kernelsu (e.g. symlink KernelSU/kernel) before building.
+/KernelSU/
+/drivers/kernelsu
