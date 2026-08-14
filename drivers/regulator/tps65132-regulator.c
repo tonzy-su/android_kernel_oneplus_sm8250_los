@@ -19,9 +19,11 @@
 
 #include <linux/delay.h>
 #include <linux/err.h>
+#include <linux/gpio.h>
 #include <linux/gpio/consumer.h>
 #include <linux/i2c.h>
 #include <linux/module.h>
+#include <linux/of_gpio.h>
 #include <linux/regmap.h>
 #include <linux/regulator/driver.h>
 #include <linux/regulator/machine.h>
@@ -220,6 +222,48 @@ static const struct regmap_config tps65132_regmap_config = {
 	.wr_table	= &tps65132_no_reg_table,
 };
 
+/*
+ * OPPO: panel power control via TPS65132 ENN/ENP GPIOs.
+ * Consumed by techpack/display (dsi_panel.c) through TPS65132_pw_enable().
+ */
+static int tps65132_enn_gpio = -EINVAL;
+static int tps65132_enp_gpio = -EINVAL;
+
+static void tps65132_parse_oplus_power_gpio(struct device *dev)
+{
+	int gpio;
+
+	gpio = of_get_named_gpio(dev->of_node, "ti,enable_pos-gpio", 0);
+	if (gpio_is_valid(gpio)) {
+		tps65132_enn_gpio = gpio;
+		gpio_request(tps65132_enn_gpio, "tps65132-enn");
+		gpio_direction_output(tps65132_enn_gpio, 0);
+	}
+
+	gpio = of_get_named_gpio(dev->of_node, "ti,enable_neg-gpio", 0);
+	if (gpio_is_valid(gpio)) {
+		tps65132_enp_gpio = gpio;
+		gpio_request(tps65132_enp_gpio, "tps65132-enp");
+		gpio_direction_output(tps65132_enp_gpio, 0);
+	}
+}
+
+void TPS65132_pw_enable(int enable)
+{
+	if (enable) {
+		if (gpio_is_valid(tps65132_enn_gpio))
+			gpio_set_value(tps65132_enn_gpio, 1);
+		if (gpio_is_valid(tps65132_enp_gpio))
+			gpio_set_value(tps65132_enp_gpio, 1);
+	} else {
+		if (gpio_is_valid(tps65132_enn_gpio))
+			gpio_set_value(tps65132_enn_gpio, 0);
+		if (gpio_is_valid(tps65132_enp_gpio))
+			gpio_set_value(tps65132_enp_gpio, 0);
+	}
+}
+EXPORT_SYMBOL(TPS65132_pw_enable);
+
 static int tps65132_probe(struct i2c_client *client,
 			  const struct i2c_device_id *client_id)
 {
@@ -228,6 +272,8 @@ static int tps65132_probe(struct i2c_client *client,
 	struct regulator_config config = { };
 	int id;
 	int ret;
+
+	tps65132_parse_oplus_power_gpio(dev);
 
 	tps = devm_kzalloc(dev, sizeof(*tps), GFP_KERNEL);
 	if (!tps)
